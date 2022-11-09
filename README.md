@@ -18,4 +18,4 @@
 - **텍스트 애니메이션**
 
 ### 추가 포트폴리오 10종 웹사이트 내에 포함되어 있습니다.
-[사이트 ](https://42inshin.github.io/portfolio/)
+[사이트 바로가기](https://42inshin.github.io/portfolio/)
