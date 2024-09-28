@@ -1,9 +1,9 @@
-$(document).ready(function() {
+$(document).ready(function () {
   //---------------------------- 상단 주메뉴 클릭시 이동
   // PC 메뉴 목록 클릭시 천천히 슬라이딩
   var gnbA = $(".gnb a");
-  $.each(gnbA, function(index, item) {
-    $(this).click(function(event) {
+  $.each(gnbA, function (index, item) {
+    $(this).click(function (event) {
       event.preventDefault();
       var posY = $(document).height();
       posY = posY * index * -1;
@@ -127,8 +127,8 @@ $(document).ready(function() {
             ? diff_left
             : diff_right
           : 0 < diffY
-          ? diff_top
-          : diff_bottom;
+            ? diff_top
+            : diff_bottom;
 
       initialX = null;
       initialY = null;
@@ -203,14 +203,14 @@ $(document).ready(function() {
   }
 
   // 휠 체크---------------------------------------------------
-  $(this).bind("mousewheel DOMMouseScroll", function(e) {
-    var distance = e.originalEvent.wheelDelta;
+  $(this).bind("mousewheel DOMMouseScroll", function (e) {
+    var distance = e.originalEvent.wheelDelta || e.originalEvent.detail * -1;
     // distance 가  120 이면 휠을 위로 드래그
     // distance 가  -120 이면 휠을 아래로 드래그
 
-    // 만약 distance 가 없다면
-    if (distance == null) {
-      distance = e.originalEvent.detail * -1;
+    var threshold = 20; // 무시할 임계값 설정
+    if (Math.abs(distance) < threshold) {
+      return; // 스크롤 값이 너무 작으면 무시
     }
     // 기본 스크롤 방향
     if (distance < 0) {
@@ -226,7 +226,7 @@ $(document).ready(function() {
         portScroll_Repeat();
       }
       return;
-    }
+    } else
     // 4번 페이지 works의 스크롤 막아줌
     if (pageIndex == 3) {
       workScroll();
@@ -272,7 +272,7 @@ $(document).ready(function() {
           top: posY
         },
         1000,
-        function() {
+        function () {
           scrollDefence = false;
           // light mode 첫페이지 gnb color
           if (pageIndex == 0) {
@@ -296,7 +296,7 @@ $(document).ready(function() {
             $(".mouse").fadeIn();
           }
           // 모바일 gnb on 표시
-          $.each($(".gnb_m > li"), function(index, item) {
+          $.each($(".gnb_m > li"), function (index, item) {
             if (index == pageIndex) {
               $(this).addClass("on");
             } else {
@@ -557,7 +557,7 @@ $(document).ready(function() {
     $("#portfolio").css("background-position-y", bgPer);
 
     // 스크롤시 각 li 위치를 해당하는 인덱스로 바꿔준다
-    $.each(portShowLi, function(index, item) {
+    $.each(portShowLi, function (index, item) {
       var port = $(this);
       if (index == portShowIndex) {
         port.removeClass();
@@ -590,7 +590,7 @@ $(document).ready(function() {
     });
     // 포트폴리오 넘어갈때 보여줄 사진
     // portShowImg.attr('src', 'images/circle_change.png');
-    setTimeout(function() {
+    setTimeout(function () {
       portShowImg.attr("src", portDataArr[portShowIndex].imgUrl);
       $(".info > h3").text(portDataArr[portShowIndex].title);
       $(".info > span").text(portDataArr[portShowIndex].desc);
@@ -600,8 +600,8 @@ $(document).ready(function() {
   }
 
   // 클릭시에는 화면 이동 처리를 하지 말자.
-  $.each(portShowLi, function(index, item) {
-    $(this).click(function() {
+  $.each(portShowLi, function (index, item) {
+    $(this).click(function () {
       if (portShowIndex < index) {
         scrollDir = "down";
         // 몇번 회전할 것인가를 계산해야 한다.
@@ -644,7 +644,7 @@ $(document).ready(function() {
     worksBoxH = $(".works_conbox").height();
     winH = $(document).height();
 
-    $(".works_wrap").scroll(function() {
+    $(".works_wrap").scroll(function () {
       workConPosY = worksContainer.offset().top;
       var iframeStart = -($(".codestart").position().top - winH + worksBoxH);
 
@@ -670,8 +670,8 @@ $(document).ready(function() {
   //---------------------------- 상단 주메뉴 클릭시 이동
   // 모바일 메뉴목록 클릭시 천천히 슬라이딩해서 도착함!
   var gnbMA = $(".gnb_m a");
-  $.each(gnbMA, function(index, item) {
-    $(this).click(function(event) {
+  $.each(gnbMA, function (index, item) {
+    $(this).click(function (event) {
       event.preventDefault();
       var posY = $(document).height();
       posY = posY * index * -1;
@@ -689,7 +689,7 @@ $(document).ready(function() {
   });
 
   // 윈도우 리사이즈 시
-  $(window).resize(function() {
+  $(window).resize(function () {
     workConPosY = worksContainer.offset().top;
     worksConH = worksContainer.height();
     winH = $(document).height();
@@ -708,17 +708,17 @@ $(document).ready(function() {
   });
 
   // contact 마우스 변경
-  $("#contact").mousemove(function(e) {
+  $("#contact").mousemove(function (e) {
     var pointer = $(".pointer");
     pointer.fadeIn();
     pointer.css({
       left: e.pageX,
       top: e.pageY
     });
-    $("header").mouseenter(function() {
+    $("header").mouseenter(function () {
       pointer.fadeOut();
     });
-    $("header").mouseleave(function() {
+    $("header").mouseleave(function () {
       pointer.fadeIn();
     });
   });
@@ -736,7 +736,7 @@ $(document).ready(function() {
 
     $progressText.css("display", "block");
 
-    imgLoad.on("progress", function() {
+    imgLoad.on("progress", function () {
       imgLoaded++;
     });
 
@@ -753,7 +753,7 @@ $(document).ready(function() {
         $progressBar
           .add($progressText)
           .delay(300)
-          .animate({ opacity: 0 }, 2000, function() {
+          .animate({ opacity: 0 }, 2000, function () {
             $container
               .animate({ opacity: "0" }, 1000, "easeInOutQuint")
               .animate({ top: "-100%" }, 1000, "easeInOutQuint");

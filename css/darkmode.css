@@ -163,7 +163,7 @@ html.light .pf_name li.on {
 }
 
 html.light section#works {
-  background: #5dd9f8;
+  background: linear-gradient(#9fe8fb, #1f819d);
 }
 
 html.light section#contact {
