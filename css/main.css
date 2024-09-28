@@ -411,7 +411,7 @@ section {
 .sky {
   background: url("../images/main2.jpg") no-repeat center;
   background-size: cover;
-  /* transform: translateZ(-600px) scale(3); */
+  transform: translateZ(-600px) scale(3);
   z-index: 1;
 }
 
